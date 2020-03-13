@@ -1,0 +1,30 @@
+#Template for the Compute VM Instance
+resources:
+- name: ${VM_INSTANCE}
+  type: compute.v1.instance
+  properties:
+    zone: ${VM_INSTANCE_ZONE}
+    machineType: ${MACHINE_TYPE}
+    disks:
+    - deviceName: boot
+      type: PERSISTENT
+      boot: true
+      autoDelete: true
+      initializeParams:
+        sourceImage: ${SOURCE_IMAGE}
+        diskType: ${DISK_TYPE}
+        diskSizeGb: 10
+    startup-script: |
+      #!/bin/bash
+      cd
+      mkdir yuvikool
+    networkInterfaces:
+      accessConfigs:
+      - name: External NAT
+        type: ${NAT_TYPE}
+        natIP: ${NAT_IP}
+        networkTier: STANDARD
+    scheduling:
+      preemptible: true
+      onHostMaintenance: TERMINATE
+      automaticRestart: false
