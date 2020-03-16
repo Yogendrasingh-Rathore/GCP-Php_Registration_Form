@@ -4,28 +4,28 @@ imports:
   - path: Tmpl/startup-script.sh
     name: startup-script.sh
 resources:
-- name: ${VM_INSTANCE}
+- name: registration-form
   type: ComputeInstance.jinja
   properties:
-    machineType: ${MACHINE_TYPE}
+    machineType: https://www.googleapis.com/compute/v1/projects/yogendra-humango-practice/zones/us-central1-a/machineTypes/f1-micro
     metadata-from-file:
       startup-script: startup-script.sh
-    zone: ${VM_INSTANCE_ZONE}
+    zone: us-central1-a
     disks:
     - deviceName: boot
       type: PERSISTENT
       boot: true
       autoDelete: true
       initializeParams:
-        sourceImage: ${SOURCE_IMAGE}
-        diskType: ${DISK_TYPE}
+        sourceImage: https://www.googleapis.com/compute/v1/projects/debian-cloud/global/images/family/debian-9
+        diskType: https://www.googleapis.com/compute/v1/projects/yogendra-humango-practice/zones/us-central1-a/diskTypes/pd-standard
         diskSizeGb: 10
     networkInterfaces:
-    - network: ${NETWORK_API}
+    - network: https://www.googleapis.com/compute/v1/projects/yogendra-humango-practice/global/networks/default
       accessConfigs:
       - name: External NAT
-        type: ${NAT_TYPE}
-        natIP: ${NAT_IP}
+        type: ONE_TO_ONE_NAT
+        natIP: 35.208.117.154
         networkTier: STANDARD
     scheduling:
       preemptible: true

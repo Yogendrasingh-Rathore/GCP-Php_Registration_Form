@@ -1,0 +1,11 @@
+imports:
+  - path: ComputeInstance.jinja
+  - path: Tmpl/startup-script.sh
+    name: startup-script.sh
+resources:
+- name: ${VM_INSTANCE}
+  type: ComputeInstance.jinja
+  properties:
+    metadata-from-file:
+      startup-script: startup-script.sh
+    zone: us-west1-a
