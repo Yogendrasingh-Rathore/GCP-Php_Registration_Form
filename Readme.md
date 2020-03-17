@@ -15,7 +15,7 @@
 			- sudo apt-get -y -qq install git
 			- cd /var/www/html/
 			- sudo rm index.html
-			- sudo git clone https://github.com/Yogendrasingh-Rathore/GCP-Php_Registration_Form.git
+			- sudo git clone https://github.com/Yogendrasingh-Rathore/Php-Registartion-Form.git
 	- gcloud deployment-manager deployments create my-vm-instance --config=compute.yaml
 2. Create a SQL Instance using Deployment Manager
 	- Create a vm-sql.yaml file
