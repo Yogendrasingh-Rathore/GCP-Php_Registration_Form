@@ -1,7 +1,7 @@
 #Template for the Cloud SQL deployment
 
 imports:
-  - path: Jinja/cloudsql.jinja
+  - path: cloudsql.jinja
     name: cloudsql.jinja
 
 resources:
@@ -15,4 +15,6 @@ resources:
       # Cloud SQL password for root user
       rootpass: ${SQL_ROOT_PASSWORD}
       machinetype: db-f1-micro
-
+      authorization:
+        - name: my-vm-ip
+          network: ${NAT_IP}
