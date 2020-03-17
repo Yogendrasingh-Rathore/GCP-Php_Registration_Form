@@ -23,8 +23,10 @@ resources:
 {% if properties['authorization'] %}
       ipConfiguration:
         authorizedNetworks:
-          - name: {{ properties['authorization']['name'] }}
-            value: {{ properties['authorization']['network'] }}
+  {% for i in range(properties['authorization']| length) %}
+          - name: {{ properties['authorization'][i]['name'] }}
+            value: {{ properties['authorization'][i]['network'] }}
+  {% endfor %}
 {% endif %}
 
 {% if properties['databases'] %}
@@ -51,7 +53,7 @@ resources:
   type: sqladmin.v1beta4.user
   properties:
     name: root
-    host: "%"
+    host: "%" 
     instance: $(ref.{{ ID }}-master.name)
     password: {{ properties['rootpass'] }}
 {% if properties['databases'] %}
@@ -93,25 +95,6 @@ resources:
       kind: sql#importContext
       fileType: SQL
       uri: {{ properties['sqlimportstructure'] }}
-  metadata:
-    dependsOn:
-  {% if properties['users'] %}
-      - {{ ID }}-user-{{ properties['users'][(properties['users']| length) - 1]['name'] }}
-  {% else %}
-      - {{ ID }}-user-root
-  {% endif %}
-{% endif %}
-
-{% if properties['sqlexportstructure'] %}
-- name: {{ ID }}-export-structure
-  action: gcp-types/sqladmin-v1beta4:sql.instances.export
-  properties:
-    instance: {{ ID }}-master
-    project: {{ env['project'] }}
-    exportContext:
-      kind: sql#exportContext
-      fileType: SQL
-      uri: {{ properties['sqlexportstructure'] }}
   metadata:
     dependsOn:
   {% if properties['users'] %}
