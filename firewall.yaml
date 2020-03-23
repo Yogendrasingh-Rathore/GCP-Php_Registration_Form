@@ -1,0 +1,21 @@
+resources:
+- name: vm-destination-egress
+  type: compute.v1.firewall
+  properties:
+    priority: 1100
+    targetTags: ["TARGET_VM_TAG"]
+    direction: EGRESS
+    destinationRanges: ["ENTER_DESTINATION_IP"]
+    allowed:
+    - IPProtocol: TCP
+      ports: ["8080","80"]
+- name: vm-destination-ingress
+  type: compute.v1.firewall
+  properties:
+    priority: 1101
+    targetTags: ["TARGET_VM_TAG"]
+    direction: INGRESS
+    sourceRanges: ["ENTER_SOURCE_IP"]
+    allowed:
+    - IPProtocol: TCP
+      ports: ["8080","80"]
