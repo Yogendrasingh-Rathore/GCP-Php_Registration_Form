@@ -1,0 +1,8 @@
+resources:
+- name: MY_VPC_NAME
+  type: compute.beta.network
+  properties:
+    routingConfig: 
+      routingMode: REGIONAL
+    autoCreateSubnetworks: TRUE
+    name: subnet-vpc
